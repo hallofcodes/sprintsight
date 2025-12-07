@@ -53,6 +53,17 @@ export interface NPM {
 }
 
 /**
+ * Represents a project scope
+ */
+export interface Scopes {
+  /** Scope title */
+  title: string;
+  /** Optional: description of the scope */
+  description?: string;
+}
+
+
+/**
  * Represents a project with associated modules, GitHub repositories, and NPM packages.
  */
 export interface ProjectType {
@@ -64,6 +75,10 @@ export interface ProjectType {
   url?: string;
   /** Optional: project icon URL */
   icon_url?: string;
+  /** Optional: project scope as description */
+  scope_description?: string;
+  /** Optional: project scope as detailed list */
+  scope_list?: Scopes[];
   /** List of GitHub repositories associated with the project */
   github_urls: Github[];
   /** Optional: list of NPM packages associated with the project */
