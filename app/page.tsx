@@ -9,14 +9,16 @@ export default function SprintSight() {
       {projects.map((project: ProjectType, i: number) => (
         <section key={i} className="mb-12">
           <div className="flex gap-3">
-            {project.icon_url && (
-              <Image
-                src={project.icon_url}
-                width="90"
-                height="50"
-                alt={project.name}
-              />
-            )}
+            <div className="relative w-full max-w-[120px] aspect-3/2">
+              {project.icon_url && (
+                <Image
+                  src={project.icon_url}
+                  alt={project.name}
+                  fill
+                  className="object-contain"
+                />
+              )}
+            </div>
             <div>
               <h1 className="text-3xl font-bold mb-2">{project.name}</h1>
               {project.description && <p>{project.description}</p>}
@@ -80,57 +82,63 @@ export default function SprintSight() {
             </>
           )}
 
-          {project.github_urls && (
-            <>
-              <h2 className="text-xl font-semibold mt-8 mb-3">
-                GitHub Repositories
-              </h2>
-              <div className="space-y-3">
-                {project.github_urls.map((repo, i) => (
-                  <div key={i} className="border rounded-md p-4 flex flex-col">
-                    {repo.name && (
-                      <h3 className="text-xl font-semibold mb-3">
-                        {repo.name}
-                      </h3>
-                    )}
-                    {repo.description && <p>{repo.description}</p>}
-                    <a
-                      className="text-orange-300 underline"
-                      href={repo.url}
-                      target="_blank"
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 mb-3">
+            {project.github_urls && (
+              <div>
+                <h2 className="text-xl font-semibold">GitHub Repositories</h2>
+                <div className="space-y-3">
+                  {project.github_urls.map((repo, i) => (
+                    <div
+                      key={i}
+                      className="border rounded-md p-4 flex flex-col"
                     >
-                      {repo.url}
-                    </a>
-                  </div>
-                ))}
+                      {repo.name && (
+                        <h3 className="text-xl font-semibold mb-3">
+                          {repo.name}
+                        </h3>
+                      )}
+                      {repo.description && <p>{repo.description}</p>}
+                      <a
+                        className="text-orange-300 underline"
+                        href={repo.url}
+                        target="_blank"
+                      >
+                        {repo.url}
+                      </a>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </>
-          )}
+            )}
 
-          {project.npm_urls && (
-            <>
-              <h2 className="text-xl font-semibold mt-8 mb-3">NPM Packages</h2>
-              <div className="space-y-3">
-                {project.npm_urls.map((repo, i) => (
-                  <div key={i} className="border rounded-md p-4 flex flex-col">
-                    {repo.name && (
-                      <h3 className="text-xl font-semibold mb-3">
-                        {repo.name}
-                      </h3>
-                    )}
-                    {repo.description && <p>{repo.description}</p>}
-                    <a
-                      className="text-orange-300 underline"
-                      href={repo.url}
-                      target="_blank"
+            {project.npm_urls && (
+              <div>
+                <h2 className="text-xl font-semibold">NPM Packages</h2>
+                <div className="space-y-3">
+                  {project.npm_urls.map((repo, i) => (
+                    <div
+                      key={i}
+                      className="border rounded-md p-4 flex flex-col"
                     >
-                      {repo.url}
-                    </a>
-                  </div>
-                ))}
+                      {repo.name && (
+                        <h3 className="text-xl font-semibold mb-3">
+                          {repo.name}
+                        </h3>
+                      )}
+                      {repo.description && <p>{repo.description}</p>}
+                      <a
+                        className="text-orange-300 underline"
+                        href={repo.url}
+                        target="_blank"
+                      >
+                        {repo.url}
+                      </a>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </>
-          )}
+            )}
+          </div>
         </section>
       ))}
     </main>
