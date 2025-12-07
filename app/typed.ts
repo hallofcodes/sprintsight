@@ -62,7 +62,6 @@ export interface Scopes {
   description?: string;
 }
 
-
 /**
  * Represents a project with associated modules, GitHub repositories, and NPM packages.
  */

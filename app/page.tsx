@@ -2,8 +2,34 @@ import Image from "next/image";
 import projects from "./lib/project";
 import StatusBadge from "./components/StatusBadge";
 import { ProjectType } from "./typed";
+import { fetchGitCommits } from "./lib/github/fetchGitCommits";
 
-export default function SprintSight() {
+export default async function SprintSight() {
+  const regex = /https?:\/\/github\.com\/([^\/]+)\/([^\/]+)/;
+  const match = projects[0].github_urls[0].url.match(regex);
+
+  const commits = match
+    ? await fetchGitCommits({ owner: match[1], repo: match[2] })
+    : null;
+
+  function timeAgo(dateString: string) {
+    const now = new Date();
+    const date = new Date(dateString);
+    const diffMs = now.getTime() - date.getTime();
+
+    const seconds = Math.floor(diffMs / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    const rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
+
+    if (days > 0) return rtf.format(-days, "day");
+    if (hours > 0) return rtf.format(-hours, "hour");
+    if (minutes > 0) return rtf.format(-minutes, "minute");
+    return rtf.format(-seconds, "second");
+  }
+
   return (
     <main className="max-w-5xl mx-auto px-4 py-10">
       {projects.map((project: ProjectType, i: number) => (
@@ -53,6 +79,22 @@ export default function SprintSight() {
                       )}
                     </div>
                   ))}
+              </div>
+            </>
+          )}
+
+          {commits && (
+            <>
+              <h2 className="text-xl font-semibold mt-6 mb-3">
+                Commits History
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {commits.map((mod, i) => (
+                  <div key={i} className="border rounded-md p-3 shadow-sm">
+                    <h4 className="font-medium">{mod.commit}</h4>
+                    <p className="text-sm text-gray-600">{timeAgo(mod.date)}</p>
+                  </div>
+                ))}
               </div>
             </>
           )}
