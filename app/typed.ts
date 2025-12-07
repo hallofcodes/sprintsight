@@ -62,6 +62,8 @@ export interface ProjectType {
   description?: string;
   /** Optional: project URL */
   url?: string;
+  /** Optional: project icon URL */
+  icon_url?: string;
   /** List of GitHub repositories associated with the project */
   github_urls: Github[];
   /** Optional: list of NPM packages associated with the project */
