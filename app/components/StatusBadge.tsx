@@ -2,11 +2,11 @@ import { ModuleStatus } from "../typed";
 
 export default function StatusBadge({ status }: { status: ModuleStatus }) {
   const colors: Record<ModuleStatus, string> = {
-    Working: "bg-green-600",
-    Partially: "bg-yellow-500",
-    NotImplemented: "bg-red-500",
-    Deprecated: "bg-gray-500",
-    Planned: "bg-blue-500",
+    Working: "bg-green-400",
+    Partially: "bg-yellow-400",
+    NotImplemented: "bg-red-400",
+    Deprecated: "bg-gray-400",
+    Planned: "bg-blue-400",
   };
 
   return (
